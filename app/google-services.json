@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "32287789809",
+    "project_id": "sequeniatestwork",
+    "storage_bucket": "sequeniatestwork.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:32287789809:android:2232e71ac7f040a22a0f50",
+        "android_client_info": {
+          "package_name": "ui.smartpro.sequenia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "32287789809-mmgb9cu3em8mh29e5076c16p00j1h6l7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ui.smartpro.sequenia",
+            "certificate_hash": "05aa3926bdaaac72617032f101e85cff1997bd6c"
+          }
+        },
+        {
+          "client_id": "32287789809-9guqv4uv7f2eqh97i42i23m2mr67qddn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnUVfdbfXStDleq34JqPcbKdvTJn2W934"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "32287789809-9guqv4uv7f2eqh97i42i23m2mr67qddn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
