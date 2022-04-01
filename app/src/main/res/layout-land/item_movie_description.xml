@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?><?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <ImageView
+        android:id="@+id/image_movie"
+        style="@style/image_movie_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/name_movie"
+        style="@style/name_movie_description"
+        app:layout_constraintStart_toEndOf="@+id/image_movie"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/tools_text_name_movie_item_description" />
+
+    <TextView
+        android:id="@+id/year_movie"
+        style="@style/year_movie_description"
+        app:layout_constraintStart_toEndOf="@+id/image_movie"
+        app:layout_constraintTop_toBottomOf="@id/name_movie"
+        tools:text="@string/tools_text_year_movie" />
+
+    <TextView
+        android:id="@+id/rating_movie"
+        style="@style/rating_movie_description"
+        app:layout_constraintStart_toEndOf="@+id/image_movie"
+        app:layout_constraintTop_toBottomOf="@id/year_movie"
+        tools:text="@string/tools_text_rating_movie" />
+
+    <TextView
+        android:id="@+id/description_movie"
+        style="@style/description_movie"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image_movie"
+        tools:layout_editor_absoluteY="214dp"
+        tools:text="@string/tools_text_description_movie" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

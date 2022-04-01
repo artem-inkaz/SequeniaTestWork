@@ -1,0 +1,59 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/toolbar_title"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:layout_collapseMode="pin"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|enterAlwaysCollapsed"
+            app:titleEnabled="false">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/arrow_back_iv"
+                    style="@style/feed_header_arrow_back"
+                    android:visibility="gone" />
+
+                <androidx.appcompat.widget.Toolbar
+                    android:layout_width="wrap_content"
+                    android:layout_height="?attr/actionBarSize"
+                    android:gravity="center"
+                    app:contentInsetLeft="0dp"
+                    app:contentInsetStart="0dp"
+                    app:elevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/toolbar_title"
+                            style="@style/feed_header_toolbar_title"
+                            tools:text="@string/tools_text_name_movie_item_description" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/height_view_feed_header"
+                            android:background="@color/toolbar_title" />
+                    </LinearLayout>
+                </androidx.appcompat.widget.Toolbar>
+
+            </LinearLayout>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+</merge>
