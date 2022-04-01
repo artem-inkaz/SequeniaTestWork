@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_movie_card_view"
+    style="@style/item_movie_card_add_style"
+    app:cardBackgroundColor="@color/item_movie_background"
+    app:cardCornerRadius="@dimen/corner_radius_item_movie_card"
+    app:cardElevation="@dimen/elevation_item_movie_card"
+    app:cardPreventCornerOverlap="false"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/toolbar"
+    app:rippleColor="@android:color/transparent"
+    app:strokeColor="@color/cardview_dark_background"
+    app:strokeWidth="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_movie_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/image_movie"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/content_description_poster_movie"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_combined_shape" />
+
+        <TextView
+            android:id="@+id/empty_image_title_tv"
+            style="@style/item_movie_card_empty_image_title_style"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@id/empty_image_description_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/empty_image_description_tv"
+            style="@style/item_movie_card_empty_image_description_style"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/item_movie_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
