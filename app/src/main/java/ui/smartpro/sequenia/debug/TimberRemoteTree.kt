@@ -6,8 +6,8 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import timber.log.Timber
-import ui.smartpro.sequenia.model.debug.DeviceDetails
-import ui.smartpro.sequenia.model.debug.RemoteLog
+import ui.smartpro.sequenia.data.debug.DeviceDetails
+import ui.smartpro.sequenia.data.debug.RemoteLog
 import java.text.SimpleDateFormat
 import java.util.*
 

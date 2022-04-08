@@ -1,4 +1,4 @@
-package ui.smartpro.sequenia.model.debug
+package ui.smartpro.sequenia.data.debug
 
 data class RemoteLog(
     var priority: String,

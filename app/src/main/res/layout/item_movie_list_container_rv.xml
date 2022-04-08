@@ -9,7 +9,10 @@
 
     <TextView
         android:id="@+id/header_movie_list_tv"
-        style="@style/header_movie_list" />
+        style="@style/header_movie_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/movie_list_rv"
@@ -18,7 +21,12 @@
         android:layout_gravity="center"
         android:orientation="vertical"
         android:paddingStart="@dimen/padding_start_rv_movie_list_container"
+        android:paddingBottom="?attr/actionBarSize"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header_movie_list_tv"
         app:spanCount="2"
         tools:itemCount="2"
         tools:listitem="@layout/item_movie_view_holder" />

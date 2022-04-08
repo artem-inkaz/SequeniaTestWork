@@ -8,8 +8,10 @@
     tools:context=".ui.MainFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/main_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scrollbars="vertical"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_genres_view_holder" />
