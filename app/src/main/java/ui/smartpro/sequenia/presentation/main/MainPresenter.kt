@@ -15,9 +15,6 @@ import ui.smartpro.sequenia.domain.usecase.MoviesByGenresUseCase
 import ui.smartpro.sequenia.domain.usecase.MoviesUseCase
 
 class MainPresenter(
-//    private val moviesRepository: MoviesRepositoryImpl,
-//      private val moviesUseCase: MoviesUseCase
-//    private val genresRepository: GenresRepositoryImpl
 ) : BasePresenter<MainPresenter.MovieView>(), KoinComponent {
 
     private val moviesUseCase: MoviesUseCase by inject()
@@ -28,22 +25,17 @@ class MainPresenter(
     private val callBack = object :
         Callback<ui.smartpro.sequenia.data.response.Response> {
 
-
         override fun onResponse(
             call: Call<ui.smartpro.sequenia.data.response.Response>,
             response: Response<ui.smartpro.sequenia.data.response.Response>
         ) {
             val responseServer = response.body()!!
             val movies = response.body()!!.films
-            val genres = response.body()!!.films[1].genres
             if (responseServer != null) {
-                val m = MovieMapper.convertToMovies(responseServer)
                 val g = MovieMapper.getMapAllGenres(movies)
-                val f = MovieMapper.getFilmsByGenres("драма", movies)
                 films = movies
                 view?.showMovies(movies)
                 view?.showGenres(g)
-//
             }
         }
 
@@ -62,7 +54,6 @@ class MainPresenter(
     }
 
     fun getMovies() {
-//        moviesRepository.getMovies(callBack)
         moviesUseCase.getMovies(callBack)
     }
 
@@ -70,7 +61,6 @@ class MainPresenter(
         val genresUseCase = moviesbyGenresUseCase.getFilmsByGenres(genre, film)
         genresUseCase[genre]?.let { view?.showMoviesByGenres(genre, it) }
     }
-
 
     interface MovieView {
         fun showGenres(genres: List<Genre>)
