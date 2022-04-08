@@ -4,6 +4,7 @@
     <dimen name="movie_card_height">180dp</dimen>
     <dimen name="view_big_gap">16dp</dimen>
     <dimen name="view_medium_gap">8dp</dimen>
+    <dimen name="view_small_gap">4dp</dimen>
     <dimen name="padding_top_header_genres">10dp</dimen>
     <dimen name="padding_bottom_header_genres">10dp</dimen>
     <dimen name="item_genres_width">200dp</dimen>

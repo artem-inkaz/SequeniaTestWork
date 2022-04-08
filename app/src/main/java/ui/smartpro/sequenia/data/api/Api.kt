@@ -1,8 +1,8 @@
-package ui.smartpro.sequenia.api
+package ui.smartpro.sequenia.data.api
 
 import retrofit2.Call
 import retrofit2.http.GET
-import ui.smartpro.sequenia.model.Response
+import ui.smartpro.sequenia.data.response.Response
 
 interface Api {
 
@@ -11,5 +11,5 @@ interface Api {
      */
 
     @GET("sequeniatesttask/films.json")
-    suspend fun getFilms(): Call<Response>
+    fun getFilms(): Call<Response>
 }

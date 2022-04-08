@@ -1,4 +1,4 @@
-package ui.smartpro.sequenia.model.debug
+package ui.smartpro.sequenia.data.debug
 
 import android.os.Build
 import ui.smartpro.sequenia.BuildConfig

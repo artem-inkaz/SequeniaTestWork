@@ -26,6 +26,7 @@
             android:layout_height="match_parent"
             android:contentDescription="@string/content_description_poster_movie"
             android:visibility="visible"
+            android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -42,7 +43,9 @@
         <TextView
             android:id="@+id/empty_image_description_tv"
             style="@style/item_movie_card_empty_image_description_style"
-            android:visibility="invisible"
+            android:visibility="visible"
+            android:ellipsize="end"
+            android:maxLines="2"
             app:layout_constraintBottom_toBottomOf="@id/item_movie_container"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

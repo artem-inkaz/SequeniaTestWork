@@ -5,13 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background">
-
     <ImageView
         android:id="@+id/image_movie"
         style="@style/image_movie_description"
+        android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:contentDescription="@string/content_description_poster_movie" />
+
+
+    <TextView
+        android:id="@+id/empty_image_title_tv"
+        style="@style/item_movie_card_empty_image_title_description_style"
+        android:layout_above="@id/image_movie"
+        android:layout_marginTop="76dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@id/image_movie"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@id/image_movie"
+        app:layout_constraintTop_toTopOf="@+id/image_movie" />
 
     <TextView
         android:id="@+id/name_movie"
@@ -37,10 +49,21 @@
     <TextView
         android:id="@+id/description_movie"
         style="@style/description_movie"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/image_movie"
-        tools:layout_editor_absoluteY="214dp"
+        app:layout_constraintVertical_bias="0.0"
         tools:text="@string/tools_text_description_movie" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:orientation="vertical"
+        android:justificationMode="inter_word"
+        app:layout_constraintTop_toBottomOf="@id/description_movie"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

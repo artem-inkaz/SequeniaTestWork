@@ -7,8 +7,8 @@
     <string name="text_empty_image_description">Начало</string>
     <string name="header_movie_list_container">Фильмы</string>
     <string name="tools_text_name_movie_item_description">Тихоокеанский рубеж 2</string>
-    <string name="tools_text_year_movie">Год 2010</string>
-    <string name="tools_text_rating_movie">Рейтинг: 6.083</string>
+    <string name="tools_text_year_movie">Год %1$s</string>
+    <string name="tools_text_rating_movie">Рейтинг: %1$s</string>
     <string name="tools_text_description_movie">Команда пилотируемых роботов-защитников остановила вторжение гигантских инопланетных монстров. Великая битва за Тихоокеанский рубеж ознаменовала новую главу в истории человечества. Однако война только начинается…\nrПришло время нового поколения отстаивать своё право на Землю.</string>
     <string name="tools_text_item_genres">драма</string>
     <string name="content_description_poster_movie">Постер фильма</string>

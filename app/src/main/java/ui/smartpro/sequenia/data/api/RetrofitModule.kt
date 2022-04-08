@@ -1,4 +1,4 @@
-package ui.smartpro.sequenia.api
+package ui.smartpro.sequenia.data.api
 
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient

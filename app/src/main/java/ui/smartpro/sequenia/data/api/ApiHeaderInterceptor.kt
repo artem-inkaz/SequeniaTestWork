@@ -1,4 +1,4 @@
-package ui.smartpro.sequenia.api
+package ui.smartpro.sequenia.data.api
 
 import okhttp3.Interceptor
 import okhttp3.Response

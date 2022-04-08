@@ -9,12 +9,14 @@
         <item name="android:paddingBottom">@dimen/padding_bottom_header_genres</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">@color/text_view</item>
+        <item name="android:layout_marginTop">@dimen/view_medium_gap</item>
     </style>
 
     <style name="item_genres_add_style">
         <item name="android:layout_width">@dimen/item_genres_width</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/item_background</item>
+        <item name="android:foreground">?android:selectableItemBackground</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textColor">@color/text_view</item>
     </style>
@@ -25,14 +27,23 @@
         <item name="android:layout_marginTop">@dimen/view_medium_gap</item>
         <item name="android:layout_marginStart">@dimen/view_big_gap</item>
         <item name="android:layout_marginEnd">@dimen/view_big_gap</item>
-        <item name="android:layout_marginBottom">@dimen/view_big_gap</item>
+<!--        <item name="android:layout_marginBottom">@dimen/view_medium_gap</item>-->
         <item name="android:padding">@dimen/view_medium_gap</item>
     </style>
 
     <style name="item_movie_card_empty_image_title_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/height_empty_image_title</item>
-        <item name="android:background">@color/item_movie_background</item>
+        <item name="android:padding">@dimen/padding_empty_image_title</item>
+        <item name="android:paddingTop">@dimen/padding_top_empty_image_title</item>
+        <item name="android:text">@string/alert_description_download_image_movie</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@color/text_description</item>
+    </style>
+
+    <style name="item_movie_card_empty_image_title_description_style">
+        <item name="android:layout_width">@dimen/width_image_movie_item_description</item>
+        <item name="android:layout_height">@dimen/height_empty_image_title</item>
         <item name="android:padding">@dimen/padding_empty_image_title</item>
         <item name="android:paddingTop">@dimen/padding_top_empty_image_title</item>
         <item name="android:text">@string/alert_description_download_image_movie</item>
@@ -47,6 +58,7 @@
         <item name="android:paddingTop">@dimen/padding_top_empty_image_description</item>
         <item name="android:text">@string/text_empty_image_description</item>
         <item name="android:textAlignment">center</item>
+
         <item name="android:textColor">@color/text_description</item>
     </style>
 
@@ -55,7 +67,6 @@
         <item name="android:layout_height">@dimen/height_empty_image_title</item>
         <item name="android:background">@color/toolbar_title</item>
         <item name="android:padding">@dimen/padding_top_header_movie_list</item>
-        <item name="android:textSize">@dimen/text_size_header_movie_list</item>
         <item name="android:text">@string/header_movie_list_container</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">@color/text_view</item>
@@ -122,6 +133,11 @@
         <item name="android:layout_marginTop">@dimen/margin_top_toolbar_title_feed_header</item>
         <item name="android:textColor">@color/text_toolbar_description</item>
         <item name="android:textSize">@dimen/text_size_toolbar_title_feed_header</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <!-- Customize color of navigation drawer icon and back arrow -->
+        <item name="colorControlNormal">@color/text_toolbar</item>
     </style>
 
 </resources>
