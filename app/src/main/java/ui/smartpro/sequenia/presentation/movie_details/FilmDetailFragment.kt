@@ -1,8 +1,9 @@
 package ui.smartpro.sequenia.presentation.movie_details
 
+import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -10,9 +11,10 @@ import timber.log.Timber
 import ui.smartpro.sequenia.R
 import ui.smartpro.sequenia.data.response.Film
 import ui.smartpro.sequenia.databinding.ItemMovieDescriptionBinding
+import ui.smartpro.sequenia.extensions.CommonConstants.rLayout
 import ui.smartpro.sequenia.extensions.useCoilToLoadPhoto
 
-class FilmDetailFragment : Fragment(R.layout.item_movie_description) {
+class FilmDetailFragment : Fragment(rLayout!!) {
 
     companion object {
         const val BUNDLE_EXTRA = "film"
@@ -38,27 +40,44 @@ class FilmDetailFragment : Fragment(R.layout.item_movie_description) {
             filmBundle.localized_name
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        getLayout()
+    }
+
+    @LayoutRes
+    fun getLayout(): Int? {
+        val orientation = resources.configuration.orientation
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            rLayout = R.layout.item_movie_description
+        } else {
+            rLayout = R.layout.item_movie_description_land
+        }
+        return rLayout
+    }
+
     override fun onResume() {
         super.onResume()
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
     }
 
     private fun displayMovie(film: Film) {
         with(binding) {
             root.context?.let { context ->
                 film.image_url?.let {
-                    useCoilToLoadPhoto(
-                        root.context,
-                        emptyImageTitleTv!!,
-                        imageMovie,
-                        it
-                    )
+                    if (emptyImageTitleTv != null) {
+                        useCoilToLoadPhoto(
+                            root.context,
+                            emptyImageTitleTv,
+                            imageMovie,
+                            it
+                        )
+                    }
                 }
                 Timber.tag("selectedPos").d(film.image_url)
                 if (film.image_url == null) {
-                    emptyImageTitleTv?.visibility = View.VISIBLE
-                    emptyImageTitleTv?.text =
+                    emptyImageTitleTv.visibility = View.VISIBLE
+                    emptyImageTitleTv.text =
                         resources.getString(R.string.alert_description_download_image_movie)
                 }
                 nameMovie.text = film.localized_name

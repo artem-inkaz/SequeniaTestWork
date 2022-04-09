@@ -5,8 +5,7 @@ import ui.smartpro.sequenia.data.response.Response
 import ui.smartpro.sequenia.domain.repository.MoviesRepository
 
 class MoviesUseCase(private val moviesRepository: MoviesRepository) {
-
     fun getMovies(callback: Callback<Response>) {
-        moviesRepository.getMovies(callback)
+    return moviesRepository.getMovies(callback)
     }
 }

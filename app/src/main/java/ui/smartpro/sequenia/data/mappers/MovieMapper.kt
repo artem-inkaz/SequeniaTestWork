@@ -52,7 +52,6 @@ object MovieMapper {
        return listToGenre(setGenres.toList())
     }
 
-
     fun getFilmsByGenres(genre: String,film: List<Film>):HashMap<String,List<Film>> {
         val hm = HashMap<String,List<Film>>()
         val filteredList = film.filter {

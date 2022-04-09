@@ -30,11 +30,11 @@ val domainModule = module {
 }
 
 val analytic = module {
-    single { com.google.firebase.analytics.FirebaseAnalytics.getInstance(androidApplication()) }
+//    single { FirebaseAnalytics.getInstance(androidApplication()) }
     single { FirebaseAnalytics(androidApplication()) }
 }
 
-
 val presentationModule = module {
     factory { MainPresenter() }
+
 }

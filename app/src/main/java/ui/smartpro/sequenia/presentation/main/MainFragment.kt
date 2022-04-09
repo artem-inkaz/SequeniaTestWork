@@ -1,15 +1,12 @@
 package ui.smartpro.sequenia.ui
 
+import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.navOptions
-import by.kirich1409.viewbindingdelegate.viewBinding
-import com.google.firebase.crashlytics.FirebaseCrashlytics
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 import ui.smartpro.sequenia.R
@@ -18,19 +15,21 @@ import ui.smartpro.sequenia.data.response.Film
 import ui.smartpro.sequenia.databinding.FragmentMainBinding
 import ui.smartpro.sequenia.debug.FirebaseAnalytics
 import ui.smartpro.sequenia.extensions.CommonConstants.listGenre
+import ui.smartpro.sequenia.presentation.base.BaseFragment
+import ui.smartpro.sequenia.presentation.common.AppState
+import ui.smartpro.sequenia.presentation.contract.Contract
 import ui.smartpro.sequenia.presentation.main.MainPresenter
 import ui.smartpro.sequenia.presentation.main.adapter.MovieAdapter
 import ui.smartpro.sequenia.presentation.main.filmadapter.FilmsAdapter
 import ui.smartpro.sequenia.presentation.main.filmadapter.OnFilmClickListener
 import ui.smartpro.sequenia.presentation.movie_details.FilmDetailFragment.Companion.BUNDLE_EXTRA
-import java.lang.Exception
-import java.lang.RuntimeException
 
-class MainFragment : Fragment(R.layout.fragment_main), MainPresenter.MovieView,
-    OnFilmClickListener {
+class MainFragment(override val layoutId: Int = R.layout.fragment_main,
+) : BaseFragment<FragmentMainBinding, AppState, Contract.View, Contract.Presenter>(),
+Contract.View, OnFilmClickListener {
 
-    private val presenter: MainPresenter by inject()
-    private val binding: FragmentMainBinding by viewBinding()
+//    override val presenter: Contract.Presenter by inject()
+    override val presenter: MainPresenter by inject()
     private var fimsList: List<Film> = listOf()
 
     private var adapter = MovieAdapter(this)
@@ -44,9 +43,9 @@ class MainFragment : Fragment(R.layout.fragment_main), MainPresenter.MovieView,
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
         (requireActivity() as AppCompatActivity).supportActionBar?.title = "Главная"
 
-        presenter.attachView(this)
-        presenter.getMovies()
-        presenter.getAllGEnres()
+        presenter.attach(this)
+        presenter.getFilms()
+
         adapter = MovieAdapter(this)
         binding.mainRecycler.adapter = adapter
         binding.mainRecycler.apply {
@@ -54,38 +53,23 @@ class MainFragment : Fragment(R.layout.fragment_main), MainPresenter.MovieView,
         }
 
         adapterMovie = FilmsAdapter(this)
-        onGenrePicked()
-    }
+        onGenrePicked()    }
 
     override fun showGenres(genres: List<Genre>) {
         adapter.data = genres
         listGenre = genres
     }
 
-    override fun showMovies(film: List<Film>) {
+    override fun showFilms(film: List<Film>) {
+        presenter.getAllGenres(film)
         Timber.d("$film")
         fimsList = film
+
     }
 
     override fun showMoviesByGenres(genre: String, film: List<Film>) {
         analytics.choiseGenre("Выбран жанр",genre)
         adapter.filmList = film
-    }
-
-    override fun showLoading() {
-        Timber.d("showLoading")
-    }
-
-    override fun hideLoading() {
-        Timber.d("hideLoading")
-    }
-
-    override fun showEmptyMovies() {
-        Timber.d("showEmptyMovies")
-    }
-
-    override fun showError() {
-        Timber.d("showError")
     }
 
     private fun openFilmDetails(film: Film) {
@@ -102,14 +86,13 @@ class MainFragment : Fragment(R.layout.fragment_main), MainPresenter.MovieView,
             it.putParcelable(BUNDLE_EXTRA, film)
         }
 
-        Navigation.findNavController(requireActivity(), R.id.nav_host_fragment).also {
-            it.navigate(R.id.action_mainFragment_to_movieDetailFragment, bundle, options)
-        }
+        getOrientation(bundle,options)
+
     }
 
     private fun onGenrePicked() {
         adapter.onGenreItemClick = { it, pos ->
-            presenter.showMoviesByGenres(listGenre[pos - 1].name, fimsList)
+            presenter.showMoviesByGenres(listGenre[pos - 1].name)
             Timber.tag("onGenrePicked").d("${pos}" + "/" + listGenre[pos - 1])
             listGenre.forEachIndexed { index, genre ->
                 when {
@@ -122,8 +105,31 @@ class MainFragment : Fragment(R.layout.fragment_main), MainPresenter.MovieView,
         }
     }
 
+    private fun getOrientation(bundle: Bundle, options: NavOptions) {
+        val orientation = resources.configuration.orientation
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment).also {
+                it.navigate(R.id.action_mainFragment_to_movieDetailFragment, bundle, options)
+            }
+        } else if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment).also {
+                it.navigate(R.id.action_mainFragment_to_movieDetailFragment, bundle, options)
+            }
+        }
+    }
+
     override fun onItemFilmClickListener(film: Film) {
         openFilmDetails(film)
         analytics.choiseGenre("Выбран фильм",film.name)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        presenter.detach(null)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.attach(this)
     }
 }

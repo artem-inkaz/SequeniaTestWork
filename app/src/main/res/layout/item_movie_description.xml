@@ -50,6 +50,7 @@
         android:id="@+id/description_movie"
         style="@style/description_movie"
         android:padding="16dp"
+        android:justificationMode="inter_word"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -63,7 +64,6 @@
         android:layout_height="wrap_content"
         android:background="@color/background"
         android:orientation="vertical"
-        android:justificationMode="inter_word"
         app:layout_constraintTop_toBottomOf="@id/description_movie"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
