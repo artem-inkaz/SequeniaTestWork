@@ -17,10 +17,11 @@
     <fragment
         android:id="@+id/movieDetailFragment"
         android:name="ui.smartpro.sequenia.presentation.movie_details.FilmDetailFragment"
-        android:label="MovieDetailFragment"
-        tools:layout="@layout/item_movie_description">
+        android:label="MovieDetailFragment"        >
         <action
             android:id="@+id/action_movieDetailFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+
+
     </fragment>
 </navigation>

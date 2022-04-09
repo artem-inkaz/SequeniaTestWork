@@ -5,24 +5,25 @@ import org.koin.core.component.inject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import ui.smartpro.sequenia.presentation.base.BasePresenter
 import timber.log.Timber
 import ui.smartpro.sequenia.data.dto.Genre
-import ui.smartpro.sequenia.data.mappers.MovieMapper
 import ui.smartpro.sequenia.data.response.Film
 import ui.smartpro.sequenia.domain.usecase.GenresUseCase
 import ui.smartpro.sequenia.domain.usecase.MoviesByGenresUseCase
 import ui.smartpro.sequenia.domain.usecase.MoviesUseCase
+import ui.smartpro.sequenia.presentation.base.BasePresenter
+import ui.smartpro.sequenia.presentation.common.AppState
+import ui.smartpro.sequenia.presentation.contract.Contract
 
-class MainPresenter(
-) : BasePresenter<MainPresenter.MovieView>(), KoinComponent {
+class MainPresenter : BasePresenter<AppState, Contract.View>(), Contract.Presenter, KoinComponent {
 
     private val moviesUseCase: MoviesUseCase by inject()
     private val genresUseCase: GenresUseCase by inject()
-    private val moviesbyGenresUseCase: MoviesByGenresUseCase by inject()
-
+    private val moviesByGenresUseCase: MoviesByGenresUseCase by inject()
+    private var currentView: Contract.View? = null
     private var films: List<Film> = listOf()
-    private val callBack = object :
+
+        private val callBack = object :
         Callback<ui.smartpro.sequenia.data.response.Response> {
 
         override fun onResponse(
@@ -32,10 +33,8 @@ class MainPresenter(
             val responseServer = response.body()!!
             val movies = response.body()!!.films
             if (responseServer != null) {
-                val g = MovieMapper.getMapAllGenres(movies)
                 films = movies
-                view?.showMovies(movies)
-                view?.showGenres(g)
+                currentView?.showFilms(movies)
             }
         }
 
@@ -44,31 +43,37 @@ class MainPresenter(
             t: Throwable
         ) {
             Timber.d(t.toString())
-            view?.showEmptyMovies()
         }
     }
 
-    fun getAllGEnres() {
-        genresUseCase.getAllGenres(films)
-
+    fun showMoviesByGenres(genre: String) {
+        val genresUseCase = moviesByGenresUseCase.getFilmsByGenres(genre, films)
+        genresUseCase[genre]?.let { currentView?.showMoviesByGenres(genre, it) }
     }
 
-    fun getMovies() {
-        moviesUseCase.getMovies(callBack)
+    override fun getFilms() {
+        return moviesUseCase.getMovies(callBack)
     }
 
-    fun showMoviesByGenres(genre: String, film: List<Film>) {
-        val genresUseCase = moviesbyGenresUseCase.getFilmsByGenres(genre, film)
-        genresUseCase[genre]?.let { view?.showMoviesByGenres(genre, it) }
+    override fun getAllGenres(genres: List<Film>): List<Genre> {
+        AppState.SuccessGenre(genresUseCase.getAllGenres(genres))
+        currentView?.showGenres(genresUseCase.getAllGenres(genres))
+        return genresUseCase.getAllGenres(genres)
     }
 
-    interface MovieView {
-        fun showGenres(genres: List<Genre>)
-        fun showMovies(film: List<Film>)
-        fun showMoviesByGenres(genre: String, film: List<Film>)
-        fun showLoading()
-        fun hideLoading()
-        fun showEmptyMovies()
-        fun showError()
+    override fun attach(view: Contract.View) {
+        super.attach(view)
+        if (view != currentView) {
+            currentView = view
+        }
+    }
+
+    override fun detach(view: Contract.View?) {
+        if (view != null) {
+            super.detach(view)
+        }
+        if (view == currentView) {
+            currentView = null
+        }
     }
 }

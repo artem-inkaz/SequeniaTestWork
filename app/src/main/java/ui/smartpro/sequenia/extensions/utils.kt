@@ -1,9 +1,11 @@
 package ui.smartpro.sequenia.extensions
 
 import android.content.Context
+import android.content.res.Configuration
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.LayoutRes
 import coil.ImageLoader
 import coil.request.LoadRequest
 import coil.transform.CircleCropTransformation

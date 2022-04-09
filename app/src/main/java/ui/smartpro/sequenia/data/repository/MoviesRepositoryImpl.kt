@@ -4,14 +4,15 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import retrofit2.Callback
 import ui.smartpro.sequenia.data.api.Api
-import ui.smartpro.sequenia.data.response.Response
+import ui.smartpro.sequenia.data.response.Film
 import ui.smartpro.sequenia.domain.repository.MoviesRepository
 
 class MoviesRepositoryImpl: MoviesRepository, KoinComponent {
 
     private val apiClient: Api by inject()
+    private var films: List<Film> = listOf()
 
-    override fun getMovies(callback: Callback<Response>) {
-        return apiClient.getFilms().enqueue(callback)
+    override fun getMovies(callback: Callback<ui.smartpro.sequenia.data.response.Response>) {
+     return apiClient.getFilms().enqueue(callback)
     }
 }
