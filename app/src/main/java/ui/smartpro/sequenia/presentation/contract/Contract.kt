@@ -1,16 +1,15 @@
 package ui.smartpro.sequenia.presentation.contract
 
+import moxy.MvpView
 import ui.smartpro.sequenia.data.dto.Genre
 import ui.smartpro.sequenia.data.response.Film
-import ui.smartpro.sequenia.presentation.base.MvpPresenter
-import ui.smartpro.sequenia.presentation.base.MvpView
-import ui.smartpro.sequenia.presentation.common.AppState
+import ui.smartpro.sequenia.presentation.base.FilmView
 
 interface Contract {
 
-    interface View : MvpView
+    interface View : FilmView
 
-    interface Presenter : MvpPresenter<AppState, View> {
+    interface Presenter : MvpView {
 
         fun getFilms()
         fun getAllGenres(genres: List<Film>): List<Genre>

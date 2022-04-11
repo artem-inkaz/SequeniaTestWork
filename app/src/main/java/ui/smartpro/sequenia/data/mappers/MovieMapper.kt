@@ -4,7 +4,6 @@ import ui.smartpro.sequenia.data.dto.Genre
 import ui.smartpro.sequenia.data.model.Movie
 import ui.smartpro.sequenia.data.response.Film
 import ui.smartpro.sequenia.data.response.Response
-import ui.smartpro.sequenia.extensions.convertToSet
 
 object MovieMapper {
 

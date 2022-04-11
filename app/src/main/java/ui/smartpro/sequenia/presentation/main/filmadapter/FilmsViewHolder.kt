@@ -1,6 +1,5 @@
 package ui.smartpro.sequenia.presentation.main.filmadapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,7 @@ import timber.log.Timber
 import ui.smartpro.sequenia.R
 import ui.smartpro.sequenia.data.response.Film
 import ui.smartpro.sequenia.databinding.ItemMovieViewHolderBinding
-import ui.smartpro.sequenia.extensions.useCoilToLoadPhoto
+import ui.smartpro.sequenia.utils.useCoilToLoadPhoto
 
 class FilmsViewHolder(
     private val binding: ItemMovieViewHolderBinding,

@@ -1,21 +1,36 @@
 package ui.smartpro.sequenia.presentation.base
 
-import androidx.annotation.CallSuper
-import ui.smartpro.sequenia.presentation.common.AppState
+import moxy.MvpPresenter
 
-abstract class BasePresenter<T : AppState,V : MvpView>: MvpPresenter<T, V> {
+abstract class BasePresenter<T : BaseView>: MvpPresenter<T>() {
 
-    protected var view: V? = null
+    protected var view: T? = null
         private set
 
-    @CallSuper
-    override fun attach(view: V) {
+    override fun detachView(view: T) {
+        super.detachView(view)
+        this.view = null
+    }
+
+    override fun attachView(view: T) {
+        super.attachView(view)
         this.view = view
     }
 
-    @CallSuper
-    override fun detach(view: V?) {
-        this.view = null
+    fun showError(error: String) {
+        viewState?.showError(error)
+    }
+
+    fun showMessage(message: String){
+        viewState?.showMessage(message)
+    }
+
+    fun onLoading(){
+        viewState?.showLoader()
+    }
+
+    fun onLoadingFinished(){
+        viewState?.hideLoader()
     }
 
 }

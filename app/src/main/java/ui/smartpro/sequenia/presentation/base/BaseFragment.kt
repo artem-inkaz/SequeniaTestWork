@@ -1,9 +1,9 @@
 package ui.smartpro.sequenia.presentation.base
 
 import androidx.viewbinding.ViewBinding
-import ui.smartpro.sequenia.presentation.common.AppState
+import moxy.MvpPresenter
 
-abstract class BaseFragment<Binding: ViewBinding, T : AppState, V : MvpView, P : MvpPresenter<T, V>> :
-    BaseMvpFragment<Binding,T, V, P>() {
+abstract class BaseFragment<Binding: ViewBinding, V : FilmView, P : MvpPresenter<V>> :
+    BaseMvpFragment<Binding,V, P>() {
 
 }

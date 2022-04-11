@@ -36,6 +36,8 @@
             android:id="@+id/empty_image_title_tv"
             style="@style/item_movie_card_empty_image_title_style"
             android:visibility="invisible"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
             app:layout_constraintBottom_toTopOf="@id/empty_image_description_tv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

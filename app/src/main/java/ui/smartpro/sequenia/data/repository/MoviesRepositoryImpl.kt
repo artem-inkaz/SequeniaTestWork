@@ -10,7 +10,6 @@ import ui.smartpro.sequenia.domain.repository.MoviesRepository
 class MoviesRepositoryImpl: MoviesRepository, KoinComponent {
 
     private val apiClient: Api by inject()
-    private var films: List<Film> = listOf()
 
     override fun getMovies(callback: Callback<ui.smartpro.sequenia.data.response.Response>) {
      return apiClient.getFilms().enqueue(callback)
