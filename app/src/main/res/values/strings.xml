@@ -13,4 +13,13 @@
     <string name="tools_text_item_genres">драма</string>
     <string name="content_description_poster_movie">Постер фильма</string>
     <string name="content_description_arrow_back">Возврат на главный экран</string>
+    <string name="onboarding_message">Приветсвуем в лучшем кинотеатре СНГ!</string>
+    <string name="lets_go">ОК, подключаюсь</string>
+    <string name="lets_available">Нужно подключить Интернет!</string>
+    <string name="alert_internet_connections">Данных нет! Возможно отключен интернет, проверьте! Выйдите из приложения. Подключите интернет и попробуйте с нова! </string>
+    <string name="alert_message">Служебное сообщение</string>
+    <string name="connect_internet">Включить Интернет</string>
+    <string name="no">Нет</string>
+    <string name="cancel">Отмена</string>
+    <string name="available_internet">Ошибка загрузки данных. Проверьте интернет!</string>
 </resources>

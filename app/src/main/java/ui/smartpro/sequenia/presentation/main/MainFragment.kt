@@ -1,10 +1,12 @@
 package ui.smartpro.sequenia.ui
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.navigation.NavOptions
@@ -13,6 +15,7 @@ import androidx.navigation.navOptions
 import moxy.MvpPresenter
 import org.koin.android.ext.android.inject
 import timber.log.Timber
+import ui.smartpro.sequenia.MainActivity
 import ui.smartpro.sequenia.R
 import ui.smartpro.sequenia.data.dto.Genre
 import ui.smartpro.sequenia.data.response.Film
@@ -20,6 +23,7 @@ import ui.smartpro.sequenia.databinding.FragmentMainBinding
 import ui.smartpro.sequenia.debug.FirebaseAnalytics
 import ui.smartpro.sequenia.presentation.base.BaseFragment
 import ui.smartpro.sequenia.presentation.contract.Contract
+import ui.smartpro.sequenia.presentation.dialog.AlertDialogFragment
 import ui.smartpro.sequenia.presentation.main.MainPresenter
 import ui.smartpro.sequenia.presentation.main.adapter.MovieAdapter
 import ui.smartpro.sequenia.presentation.main.filmadapter.FilmsAdapter
@@ -27,15 +31,14 @@ import ui.smartpro.sequenia.presentation.main.filmadapter.OnFilmClickListener
 import ui.smartpro.sequenia.presentation.movie_details.FilmDetailFragment.Companion.BUNDLE_EXTRA
 import ui.smartpro.sequenia.utils.CommonConstants.listGenre
 import ui.smartpro.sequenia.utils.SharedPreferencesHelper
+import kotlin.system.exitProcess
 
 class MainFragment(
     override val layoutId: Int = R.layout.fragment_main,
 ) : BaseFragment<FragmentMainBinding, Contract.View, MvpPresenter<Contract.View>>(),Contract.View,
  OnFilmClickListener {
 
-//    override val presenter: Contract.Presenter by inject()
     override val presenter : MainPresenter by inject()
-//    override val presenter by moxyPresenter { MainPresenter() }
     private var filmsList: List<Film> = listOf()
 
     private var adapter = MovieAdapter(this)
@@ -44,17 +47,26 @@ class MainFragment(
     private val analytics by inject<FirebaseAnalytics>()
     private val sharePref by inject<SharedPreferencesHelper>()
     private var bundleEx: Bundle = bundleOf()
+    private var statusApp: Boolean = false
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        if (savedInstanceState == null) {
-//            sharePref.lastGenresName = null
-//            sharePref.lastFilmList = listOf()
-//            sharePref.lastGenresPos = -1
-//        }
+        if (sharePref.firstOpen==0 && sharePref.secondOpen==0) {
+            sharePref.secondOpen = 1
+            sharePref.lastGenresName = null
+            sharePref.lastFilmList = listOf()
+            sharePref.lastGenresPos = -1
+        }
+
+        presenter.checkConnection()
+
+        if (sharePref.secondOpen==0) {
+            presenter.firstOpen()
+        }
 
         (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = "Главная"
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = resources.getString(R.string.title_main)
         baseProgressBar = binding.progressBar
         adapter = MovieAdapter(this)
         binding.mainRecycler.adapter = adapter
@@ -74,20 +86,27 @@ class MainFragment(
         getLastSherPref()
     }
 
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-//        if (!filmsList.isNullOrEmpty())
-//        outState.putParcelable("last_list_film", BaseParcelable(filmsList))
-//        Log.w("Lifecycle","onSaveInstanceState /${filmsList.size}/$outState ")
-//    }
-//
-//    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-//        super.onViewStateRestored(savedInstanceState)
-//        val any = arguments?.getParcelable<BaseParcelable>("last_list_film")?.value
-//        if (any != null)
-//        filmsList = any as List<Film>
-//        Log.w("Lifecycle","onViewStateRestored /$any /${filmsList.size}")
-//    }
+    override fun showOnBoarding() {
+        if (sharePref.firstOpen == 0 && sharePref.secondOpen ==0) {
+            AlertDialog
+                .Builder(requireContext())
+                .setMessage(R.string.onboarding_message)
+                .setIcon(R.drawable.logo_app_background)
+                .setPositiveButton(getString(R.string.lets_go)) {
+                        dialog, id ->  dialog.cancel()
+                }
+                .create()
+                .show()
+        }
+        Log.w("firstOpen","showOnBoarding /${sharePref.firstOpen}")
+    }
+
+    override fun showAlertConnect() {
+        AlertDialogFragment().show(
+            childFragmentManager, AlertDialogFragment.TAG
+        )
+        baseProgressBar?.visibility = View.INVISIBLE
+    }
 
     override fun showGenres(genres: List<Genre>) {
         adapter.data = genres
@@ -104,7 +123,10 @@ class MainFragment(
             adapter.filmList = sharePref.lastFilmList
             filmsList = sharePref.lastFilmList
         }
-        Log.w("Lifecycle","sharePref showMoviesByGenres /${sharePref.lastFilmList.size} /${filmsList.size}")
+    }
+
+    override fun firstOpen(count: Int) {
+        sharePref.firstOpen = count
     }
 
     override fun showLoader() {
@@ -113,6 +135,25 @@ class MainFragment(
 
     override fun hideLoader() {
         baseProgressBar?.visibility = View.INVISIBLE
+    }
+
+    override fun showError(error: String) {
+        super.showError(error)
+            AlertDialogFragment().show(
+                childFragmentManager, AlertDialogFragment.TAG
+            )
+    }
+
+    override fun networkStatus(status: Boolean) {
+        if (!status) {
+            AlertDialogFragment().show(
+                childFragmentManager, AlertDialogFragment.TAG
+            )
+        }
+        if (status) {
+            presenter.getFilms()
+            getLastSherPref()
+        }
     }
 
     private fun openFilmDetails(film: Film) {
@@ -139,16 +180,11 @@ class MainFragment(
 
     private fun onGenrePicked() {
         adapter.onGenreItemClick = { _, pos ->
-//            presenter.showMoviesByGenres(listGenre[pos - 1].name)
             Timber.tag("onGenrePicked").d("${pos}" + "/" + listGenre[pos - 1])
-//            sharePref.lastGenresName = listGenre[pos - 1].name
-//            sharePref.lastGenresPos = pos
             listGenre.forEachIndexed { index, genre ->
                 when {
                     (index != pos - 1) -> {
                         genre.isChecked = false
-//                        sharePref.flagClick = false
-                        Log.w("positions","(index != pos - 1) ${genre.isChecked}/${index}/${pos - 1}/${sharePref.lastGenresPos}/$${sharePref.flagClick}")
                     }
                     (index == pos - 1 && genre.isChecked) -> {
                         genre.isChecked = false
@@ -156,7 +192,6 @@ class MainFragment(
                         sharePref.flagClick = false
                         sharePref.lastGenresName = null
                         presenter.getFilms()
-                        Log.w("positions","(index == pos - 1 && genre.isChecked) ${sharePref.lastGenresPos}/${sharePref.flagClick}")
                     }
                     (index == pos - 1 && !genre.isChecked) -> {
                         genre.isChecked = true
@@ -164,10 +199,8 @@ class MainFragment(
                         sharePref.lastGenresPos = pos
                         sharePref.lastGenresName = listGenre[pos - 1].name
                         presenter.showMoviesByGenres(listGenre[pos - 1].name)
-                        Log.w("positions","(index == pos - 1 && !genre.isChecked) ${sharePref.lastGenresPos}/$${sharePref.flagClick}")
                     }
                 }
-                Log.w("positions","genre status ${genre.isChecked}")
             }
             Timber.tag("onGenrePicked").d(listGenre.toString())
         }
@@ -199,38 +232,8 @@ class MainFragment(
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        Log.w("Lifecycle","onStart /${filmsList.size} /$bundleEx")
-    }
-
     override fun onResume() {
         super.onResume()
-        Log.w("Lifecycle","onResume /${filmsList.size} /$bundleEx")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.w("Lifecycle","onStop /${filmsList.size} /$bundleEx")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.w("Lifecycle","onPause /$bundleEx /${filmsList.size}")
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Log.w("Lifecycle","onDestroyView /${filmsList.size} /$bundleEx")
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Log.w("Lifecycle","onAttach /${filmsList.size} /$bundleEx")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.w("Lifecycle","onDestroy /${filmsList.size} /$bundleEx")
+        presenter.checkConnection()
     }
 }

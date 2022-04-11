@@ -75,19 +75,13 @@ abstract class BaseMvpFragment<Binding: ViewBinding,V : FilmView, P : MvpPresent
         @Suppress("UNCHECKED_CAST")
         presenter.attachView(this as V)
     }
-//
-//    override fun onPause() {
-//        super.onPause()
-//        @Suppress("UNCHECKED_CAST")
-//        presenter.detachView(this as V)
-//    }
 
     override fun showError(error: String) {
-        Toast.makeText(activity, error, Toast.LENGTH_LONG).show()
+
     }
 
     override fun showMessage(message: String) {
-        Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
+
     }
 
     override fun showLoader() {

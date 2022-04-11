@@ -27,7 +27,7 @@ class MovieAdapter(
     var onGenreItemClick: (
         (item: Genre, position: Int) -> Unit)? = null,
 
-    ) : ListAdapter<Genre, RecyclerView.ViewHolder>(GenreDiff),KoinComponent {
+    ) : ListAdapter<Genre, RecyclerView.ViewHolder>(GenreDiff), KoinComponent {
 
     companion object {
         private const val HEADER_GENRES_TYPE = 0
@@ -35,6 +35,7 @@ class MovieAdapter(
         private const val GENRES_TYPE = 2
         private const val FILM_TYPE = 3
     }
+
     private val sharePref by inject<SharedPreferencesHelper>()
     var selectedPos = -1
     var prevSelectedPos = -1
@@ -152,16 +153,13 @@ class MovieAdapter(
             if (position == prevSelectedPos) {
                 defaultBg()
                 prevSelectedPos = -1
-                Log.w("positions","(position == prevSelectedPos) ${selectedPos}/${position}/${prevSelectedPos}/${sharePref.lastGenresName}/${sharePref.flagClick}")
-
             }
-                if (selectedPos == position ) {
-                    if(sharePref.lastGenresName != null) {
-                        selectedBg()
-                        prevSelectedPos = position
-                        return
-                    }
-                Log.w("positions","(selectedPos == position && sharePref.lastGenresName != null) ${selectedPos}/${prevSelectedPos}/${sharePref.lastGenresName}")
+            if (selectedPos == position) {
+                if (sharePref.lastGenresName != null) {
+                    selectedBg()
+                    prevSelectedPos = position
+                    return
+                }
             } else {
                 defaultBg()
             }
@@ -182,10 +180,9 @@ class MovieAdapter(
             )
         }
 
-        fun getLastPos(){
+        fun getLastPos() {
             if (sharePref.lastGenresPos >= 0) {
                 selectedPos = sharePref.lastGenresPos
-                Log.w("positions","getLastPos= ${position}/${prevSelectedPos}/${sharePref.lastGenresPos}/${sharePref.flagClick}/$${sharePref.lastGenresName}")
             }
         }
 

@@ -4,6 +4,9 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 import ui.smartpro.sequenia.data.api.Api
 import ui.smartpro.sequenia.data.api.RetrofitModule
+import ui.smartpro.sequenia.data.model.CountersModel
+import ui.smartpro.sequenia.data.model.NetworkStateProvider
+import ui.smartpro.sequenia.data.model.NetworkStateProviderImpl
 import ui.smartpro.sequenia.data.repository.GenresRepositoryImpl
 import ui.smartpro.sequenia.data.repository.MoviesByGenresImpl
 import ui.smartpro.sequenia.data.repository.MoviesRepositoryImpl
@@ -19,6 +22,7 @@ import ui.smartpro.sequenia.utils.SharedPreferencesHelper
 
 val dataModule = module {
     single<Api> { RetrofitModule.apiClient}
+    single<NetworkStateProvider> { NetworkStateProviderImpl(androidApplication()) }
 }
 
 val domainModule = module {
@@ -38,4 +42,5 @@ val analytic = module {
 val presentationModule = module {
     factory { MainPresenter() }
     single { SharedPreferencesHelper(androidApplication()) }
+    single { CountersModel() }
 }

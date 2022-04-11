@@ -35,7 +35,6 @@ class MainActivity : BaseActivity<BaseView>() {
         onBackPressed()
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         supportActionBar?.title = "Главная"
-//        sharePref.flagClick = false
         return true
     }
 
