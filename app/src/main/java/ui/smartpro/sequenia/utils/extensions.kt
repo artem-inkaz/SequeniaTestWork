@@ -1,4 +1,4 @@
-package ui.smartpro.sequenia.extensions
+package ui.smartpro.sequenia.utils
 
 import android.view.View
 

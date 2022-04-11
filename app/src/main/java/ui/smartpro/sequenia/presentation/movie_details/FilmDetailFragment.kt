@@ -11,8 +11,8 @@ import timber.log.Timber
 import ui.smartpro.sequenia.R
 import ui.smartpro.sequenia.data.response.Film
 import ui.smartpro.sequenia.databinding.ItemMovieDescriptionBinding
-import ui.smartpro.sequenia.extensions.CommonConstants.rLayout
-import ui.smartpro.sequenia.extensions.useCoilToLoadPhoto
+import ui.smartpro.sequenia.utils.CommonConstants.rLayout
+import ui.smartpro.sequenia.utils.useCoilToLoadPhoto
 
 class FilmDetailFragment : Fragment(rLayout!!) {
 

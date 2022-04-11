@@ -7,6 +7,10 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import org.koin.android.ext.android.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import org.koin.java.KoinJavaComponent.inject
 import timber.log.Timber
 import ui.smartpro.sequenia.R
 import ui.smartpro.sequenia.R.drawable.item_background_press
@@ -15,13 +19,15 @@ import ui.smartpro.sequenia.data.response.Film
 import ui.smartpro.sequenia.databinding.ItemGenresViewHolderBinding
 import ui.smartpro.sequenia.presentation.main.filmadapter.FilmsAdapter
 import ui.smartpro.sequenia.presentation.main.filmadapter.OnFilmClickListener
+import ui.smartpro.sequenia.utils.SharedPreferencesHelper
+import kotlin.math.absoluteValue
 
 class MovieAdapter(
     private val onFilmClickListener: OnFilmClickListener,
     var onGenreItemClick: (
         (item: Genre, position: Int) -> Unit)? = null,
 
-    ) : ListAdapter<Genre, RecyclerView.ViewHolder>(GenreDiff) {
+    ) : ListAdapter<Genre, RecyclerView.ViewHolder>(GenreDiff),KoinComponent {
 
     companion object {
         private const val HEADER_GENRES_TYPE = 0
@@ -29,11 +35,17 @@ class MovieAdapter(
         private const val GENRES_TYPE = 2
         private const val FILM_TYPE = 3
     }
-
+    private val sharePref by inject<SharedPreferencesHelper>()
     var selectedPos = -1
     var prevSelectedPos = -1
 
     var data: List<Genre> = listOf()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
+
+    var dataPosition: Int? = null
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -87,6 +99,7 @@ class MovieAdapter(
             }
             GENRES_TYPE -> {
                 (holder as GenresViewHolder).bind(getItem(position))
+                (holder as GenresViewHolder).getLastPos()
                 (holder as GenresViewHolder).selectedOption(selectedPos, position)
                 holder.onGenreItemClick = onGenreItemClick
             }
@@ -139,14 +152,20 @@ class MovieAdapter(
             if (position == prevSelectedPos) {
                 defaultBg()
                 prevSelectedPos = -1
-                return
+                Log.w("positions","(position == prevSelectedPos) ${selectedPos}/${position}/${prevSelectedPos}/${sharePref.lastGenresName}/${sharePref.flagClick}")
+
             }
-            if (selectedPos == position) {
-                selectedBg()
-                prevSelectedPos = position
+                if (selectedPos == position ) {
+                    if(sharePref.lastGenresName != null) {
+                        selectedBg()
+                        prevSelectedPos = position
+                        return
+                    }
+                Log.w("positions","(selectedPos == position && sharePref.lastGenresName != null) ${selectedPos}/${prevSelectedPos}/${sharePref.lastGenresName}")
             } else {
                 defaultBg()
             }
+
             Timber.tag("selectedPos")
                 .d("selectedOption=" + position + " /" + prevSelectedPos + " /" + bindingAdapterPosition)
         }
@@ -161,6 +180,13 @@ class MovieAdapter(
                 binding.root.context,
                 item_background_press
             )
+        }
+
+        fun getLastPos(){
+            if (sharePref.lastGenresPos >= 0) {
+                selectedPos = sharePref.lastGenresPos
+                Log.w("positions","getLastPos= ${position}/${prevSelectedPos}/${sharePref.lastGenresPos}/${sharePref.flagClick}/$${sharePref.lastGenresName}")
+            }
         }
 
         override fun onClick(p0: View?) {

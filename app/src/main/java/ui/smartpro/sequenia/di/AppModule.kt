@@ -15,6 +15,7 @@ import ui.smartpro.sequenia.domain.usecase.GenresUseCase
 import ui.smartpro.sequenia.domain.usecase.MoviesByGenresUseCase
 import ui.smartpro.sequenia.domain.usecase.MoviesUseCase
 import ui.smartpro.sequenia.presentation.main.MainPresenter
+import ui.smartpro.sequenia.utils.SharedPreferencesHelper
 
 val dataModule = module {
     single<Api> { RetrofitModule.apiClient}
@@ -36,5 +37,5 @@ val analytic = module {
 
 val presentationModule = module {
     factory { MainPresenter() }
-
+    single { SharedPreferencesHelper(androidApplication()) }
 }
