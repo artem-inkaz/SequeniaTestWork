@@ -1,7 +1,5 @@
 package ui.smartpro.sequenia.ui
 
-import android.content.Context
-import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
@@ -15,7 +13,6 @@ import androidx.navigation.navOptions
 import moxy.MvpPresenter
 import org.koin.android.ext.android.inject
 import timber.log.Timber
-import ui.smartpro.sequenia.MainActivity
 import ui.smartpro.sequenia.R
 import ui.smartpro.sequenia.data.dto.Genre
 import ui.smartpro.sequenia.data.response.Film
@@ -31,7 +28,6 @@ import ui.smartpro.sequenia.presentation.main.filmadapter.OnFilmClickListener
 import ui.smartpro.sequenia.presentation.movie_details.FilmDetailFragment.Companion.BUNDLE_EXTRA
 import ui.smartpro.sequenia.utils.CommonConstants.listGenre
 import ui.smartpro.sequenia.utils.SharedPreferencesHelper
-import kotlin.system.exitProcess
 
 class MainFragment(
     override val layoutId: Int = R.layout.fragment_main,

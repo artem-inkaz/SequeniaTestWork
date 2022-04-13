@@ -4,7 +4,6 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import retrofit2.Callback
 import ui.smartpro.sequenia.data.api.Api
-import ui.smartpro.sequenia.data.response.Film
 import ui.smartpro.sequenia.domain.repository.MoviesRepository
 
 class MoviesRepositoryImpl: MoviesRepository, KoinComponent {
