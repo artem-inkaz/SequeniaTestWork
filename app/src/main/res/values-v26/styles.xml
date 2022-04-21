@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="description_movie">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/margin_top_description_movie_item_description
+        </item>
+        <item name="android:textColor">@color/text_view</item>
+        <item name="android:justificationMode">inter_word</item>
+        <item name="android:padding">@dimen/padding_description_movie</item>
+    </style>
+
+    <style name="description_movie_land">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/margin_top_description_movie_item_description
+        </item>
+        <item name="android:textColor">@color/text_view</item>
+        <item name="android:justificationMode">inter_word</item>
+        <item name="android:padding">@dimen/padding_description_movie_land</item>
+    </style>
+</resources>

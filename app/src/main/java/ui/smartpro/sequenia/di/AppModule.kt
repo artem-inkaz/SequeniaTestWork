@@ -35,7 +35,6 @@ val domainModule = module {
 }
 
 val analytic = module {
-//    single { FirebaseAnalytics.getInstance(androidApplication()) }
     single { FirebaseAnalytics(androidApplication()) }
 }
 

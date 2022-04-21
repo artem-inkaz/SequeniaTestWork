@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="header_genres_add_style">
         <item name="android:layout_width">match_parent</item>
@@ -39,6 +39,9 @@
         <item name="android:text">@string/alert_description_download_image_movie</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">@color/text_description</item>
+        <item name="android:paddingStart">@dimen/padding_start_empty_image_title_sv</item>
+        <item name="android:paddingEnd">@dimen/padding_end_empty_image_title_sv</item>
+        <item name="android:visibility">invisible</item>
     </style>
 
     <style name="item_movie_card_empty_image_title_description_style">
@@ -49,6 +52,11 @@
         <item name="android:text">@string/alert_description_download_image_movie</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">@color/text_description</item>
+        <item name="android:layout_above">@id/image_movie</item>
+        <item name="android:layout_marginTop">@dimen/margin_top_empty_image</item>
+        <item name="android:visibility">invisible</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">2</item>
     </style>
 
     <style name="item_movie_card_empty_image_description_style">
@@ -80,6 +88,7 @@
         </item>
         <item name="android:background">@drawable/item_background</item>
         <item name="android:contentDescription">@string/content_description_poster_movie</item>
+        <item name="android:scaleType">fitXY</item>
     </style>
 
     <style name="name_movie_description">
@@ -115,6 +124,32 @@
         <item name="android:layout_marginTop">@dimen/margin_top_description_movie_item_description
         </item>
         <item name="android:textColor">@color/text_view</item>
+        <item name="android:justificationMode" tools:targetApi="o">inter_word</item>
+        <item name="android:padding">@dimen/padding_description_movie</item>
+    </style>
+
+    <style name="description_movie_land">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/margin_top_description_movie_item_description
+        </item>
+        <item name="android:textColor">@color/text_view</item>
+        <item name="android:justificationMode" tools:targetApi="o">inter_word</item>
+        <item name="android:padding">@dimen/padding_description_movie_land</item>
+    </style>
+
+    <style name="view_movie_description">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/background</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="view_movie_description_land">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/background</item>
+        <item name="android:orientation">horizontal</item>
     </style>
 
     <style name="feed_header_arrow_back">
@@ -135,9 +170,80 @@
         <item name="android:textSize">@dimen/text_size_toolbar_title_feed_header</item>
     </style>
 
+    <style name="item_genres_vh_genres_container">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/margin_start_genres_container</item>
+        <item name="android:layout_marginTop">@dimen/margin_top_genres_container</item>
+    </style>
+
+    <style name="activity_container">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/background</item>
+    </style>
+
+    <style name="item_movie_list_container">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/background</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="item_movie_container">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:visibility">visible</item>
+    </style>
+
+    <style name="appbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:background">@color/toolbar_title</item>
+        <item name="android:theme">@style/Theme.Sequenia.AppBarOverlay</item>
+    </style>
+
+    <style name="toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingStart">@dimen/padding_start_toolbar</item>
+    </style>
+
+    <style name="fr_main_recycler">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:scrollbars">vertical</item>
+    </style>
+
+    <style name="movie_list_rv">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingStart">@dimen/padding_start_rv_movie_list_container</item>
+        <item name="android:paddingBottom">?attr/actionBarSize</item>
+    </style>
+
+    <style name="progressBar">
+        <item name="android:layout_width">@dimen/width_progressbar</item>
+        <item name="android:layout_height">@dimen/height_progressbar</item>
+        <item name="android:layout_marginTop">@dimen/margin_top_progressbar</item>
+        <item name="android:visibility">visible</item>
+    </style>
+
     <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
         <!-- Customize color of navigation drawer icon and back arrow -->
         <item name="colorControlNormal">@color/text_toolbar</item>
+    </style>
+
+    <style name="image_movie">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:contentDescription">@string/content_description_poster_movie</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:visibility">visible</item>
     </style>
 
 </resources>

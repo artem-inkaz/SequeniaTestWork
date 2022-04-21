@@ -1,4 +1,5 @@
 package ui.smartpro.sequenia.debug
+
 import android.content.Context
 import androidx.core.os.bundleOf
 import com.google.firebase.analytics.FirebaseAnalytics

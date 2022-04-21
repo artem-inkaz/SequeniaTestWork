@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil.inflate
 import androidx.viewbinding.ViewBinding
 import moxy.MvpAppCompatFragment
@@ -51,25 +50,37 @@ abstract class BaseMvpFragment<Binding: ViewBinding,V : FilmView, P : MvpPresent
         @Suppress("UNCHECKED_CAST")
         presenter.attachView(this as V)
     }
-//
+
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         @Suppress("UNCHECKED_CAST")
         presenter.attachView(this as V)
     }
-//
+
+    override fun onPause() {
+        super.onPause()
+        @Suppress("UNCHECKED_CAST")
+        presenter.attachView(this as V)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        @Suppress("UNCHECKED_CAST")
+        presenter.attachView(this as V)
+    }
+
     override fun onStart() {
         super.onStart()
         @Suppress("UNCHECKED_CAST")
         presenter.attachView(this as V)
     }
-//
+
     override fun onDestroyView() {
         super.onDestroyView()
         @Suppress("UNCHECKED_CAST")
         presenter.detachView(this as V)
     }
-//
+
     override fun onResume() {
         super.onResume()
         @Suppress("UNCHECKED_CAST")
