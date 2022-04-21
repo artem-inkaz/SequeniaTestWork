@@ -16,17 +16,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/item_movie_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="visible">
+        style="@style/item_movie_container">
 
         <ImageView
             android:id="@+id/image_movie"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/content_description_poster_movie"
-            android:visibility="visible"
-            android:scaleType="fitXY"
+            style="@style/image_movie"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -35,9 +29,6 @@
         <TextView
             android:id="@+id/empty_image_title_tv"
             style="@style/item_movie_card_empty_image_title_style"
-            android:visibility="invisible"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp"
             app:layout_constraintBottom_toTopOf="@id/empty_image_description_tv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -45,9 +36,6 @@
         <TextView
             android:id="@+id/empty_image_description_tv"
             style="@style/item_movie_card_empty_image_description_style"
-            android:visibility="visible"
-            android:ellipsize="end"
-            android:maxLines="2"
             app:layout_constraintBottom_toBottomOf="@id/item_movie_container"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

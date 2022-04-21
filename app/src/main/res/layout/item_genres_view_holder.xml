@@ -3,10 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/genres_container"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="5dp"
-    android:layout_marginTop="8dp">
+    style="@style/item_genres_vh_genres_container">
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/item_genres"
